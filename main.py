@@ -17,7 +17,8 @@ CLOCK = pygame.time.Clock()
 SCREEN.fill(LIGTH_GREY)
 
 GAME_GRID = Grid()
-GRID_BLOCK = TBlock()
+GRID_BLOCK = OBlock()
+# GRID_BLOCK.move(4, 3)
 
 # Create game loop
 while True:

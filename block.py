@@ -5,7 +5,7 @@ from position import Position
 from const import CELL_SIZE, COLORS
 
 class Block:
-    def __init__(self, id) -> None:
+    def __init__(self, id: int) -> None:
         self.id = id
         self.cells = {}
         self.CELL_SIZE = CELL_SIZE

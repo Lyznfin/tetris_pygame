@@ -17,11 +17,6 @@ CLOCK = pygame.time.Clock()
 SCREEN.fill(LIGTH_GREY)
 
 GAME_GRID = Grid()
-# GAME_GRID.GRID[1][1] = 4
-# GAME_GRID.GRID[1][2] = 4
-# GAME_GRID.GRID[2][1] = 4
-# GAME_GRID.GRID[2][2] = 4
-
 GRID_BLOCK = LBlock()
 
 # Create game loop
@@ -35,7 +30,7 @@ while True:
 
     GAME_GRID.draw(SCREEN)
     GRID_BLOCK.draw(SCREEN)
-    
+
     # Updates display
     pygame.display.update()
 

@@ -28,7 +28,7 @@ class Block:
 
     def rotate(self, value: int):
         self.rotation_state += value
-        if self.rotation_state > 3:
+        if self.rotation_state >= len(self.cells):
             self.rotation_state = 0
         if self.rotation_state < 0:
             self.rotation_state = 3

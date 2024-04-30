@@ -38,8 +38,10 @@ class Game:
         match rotation:
             case "right":
                 self.cur_block.rotate(1)
+                self.cur_block.rotate(-1) if not self.block_inside() else None
             case "left":
                 self.cur_block.rotate(-1)
+                self.cur_block.rotate(1) if not self.block_inside() else None
 
     def block_inside(self) -> bool:
         tiles = self.cur_block.get_cell_positions()

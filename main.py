@@ -14,6 +14,12 @@ CLOCK = pygame.time.Clock()
 
 game = Game()
 
+# Create a game event
+GAME_UPDATE = pygame.USEREVENT
+
+# Will trigger game event every interval
+pygame.time.set_timer(GAME_UPDATE, 500)
+
 while True:
     for event in pygame.event.get():
         if event.type == pygame.QUIT:
@@ -31,6 +37,9 @@ while True:
                     game.rotate_block("left")
                 case pygame.K_e:
                     game.rotate_block("right")
+        # Check for game event
+        if event.type == GAME_UPDATE:
+            game.move_block("down")
     
     game.draw(SCREEN)
 

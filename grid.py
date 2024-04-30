@@ -18,3 +18,8 @@ class Grid:
         if row >= 0 and row < ROW and column >= 0 and column < COLUMN:
             return True
         return False
+    
+    def is_empty(self, row: int, column: int) -> bool:
+        if self.GRID[row][column] == 0:
+            return True
+        return False

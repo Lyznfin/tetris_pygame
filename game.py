@@ -26,22 +26,38 @@ class Game:
         match direction:
             case "left":
                 self.cur_block.move(0, -1)
-                self.cur_block.move(0, 1) if not self.block_inside() else None
+                self.cur_block.move(0, 1) if not self.block_inside() or not self.block_fits() else None
             case "down":
                 self.cur_block.move(1, 0)
-                self.cur_block.move(-1, 0) if not self.block_inside() else None
+                if not self.block_inside() or not self.block_fits():
+                    self.cur_block.move(-1, 0)
+                    self.lock_block()
             case "right":
                 self.cur_block.move(0, 1)
-                self.cur_block.move(0, -1) if not self.block_inside() else None
+                self.cur_block.move(0, -1) if not self.block_inside() or not self.block_fits() else None
+
+    def lock_block(self):
+        tiles = self.cur_block.get_cell_positions()
+        for position in tiles:
+            self.grid.GRID[position.row][position.column] = self.cur_block.id
+        self.cur_block = self.next_block
+        self.next_block = self.get_random_block()
+
+    def block_fits(self) -> bool:
+        tiles = self.cur_block.get_cell_positions()
+        for tile in tiles:
+            if not self.grid.is_empty(tile.row, tile.column):
+                return False
+        return True
 
     def rotate_block(self, rotation: str):
         match rotation:
             case "right":
                 self.cur_block.rotate(1)
-                self.cur_block.rotate(-1) if not self.block_inside() else None
+                self.cur_block.rotate(-1) if not self.block_inside() or not self.block_fits() else None
             case "left":
                 self.cur_block.rotate(-1)
-                self.cur_block.rotate(1) if not self.block_inside() else None
+                self.cur_block.rotate(1) if not self.block_inside() or not self.block_fits() else None
 
     def block_inside(self) -> bool:
         tiles = self.cur_block.get_cell_positions()

@@ -35,6 +35,7 @@ while True:
 
     GAME_GRID.draw(SCREEN)
     GRID_BLOCK.draw(SCREEN)
+    
     # Updates display
     pygame.display.update()
 

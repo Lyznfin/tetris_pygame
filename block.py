@@ -1,6 +1,5 @@
 import pygame
 from pygame import Surface
-import time
 
 from position import Position
 from const import CELL_SIZE, COLORS
@@ -16,10 +15,10 @@ class Block:
         self.column_offset = 0
         self.move(0, 3)
 
-    def draw(self, screen: Surface) -> None:
+    def draw(self, screen: Surface, offset: int) -> None:
         tiles: list[Position] = self.get_cell_positions()
         for tile in tiles:
-            tile_rect = pygame.Rect(tile.column * CELL_SIZE + 1, tile.row * CELL_SIZE + 1, CELL_SIZE - 1, CELL_SIZE - 1)
+            tile_rect = pygame.Rect(tile.column * CELL_SIZE + offset, tile.row * CELL_SIZE + offset, CELL_SIZE - 1, CELL_SIZE - 1)
             pygame.draw.rect(surface=screen, color=COLORS[self.id], rect=tile_rect)
 
     def move(self, rows: int, columns: int) -> None:

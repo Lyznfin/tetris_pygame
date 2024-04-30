@@ -1,7 +1,7 @@
 import pygame
 from pygame import Surface
 
-from const import ROW, COLUMN, CELL_SIZE, COLORS
+from const import ROW, COLUMN, CELL_SIZE, COLORS, CELL_OFFSET
 
 class Grid:
     def __init__(self) -> None:
@@ -17,7 +17,7 @@ class Grid:
         for row in range(ROW):
             for column in range(COLUMN):
                 cell_value = self.GRID[row][column]
-                cell_rect = pygame.Rect(column * CELL_SIZE + 1, row * CELL_SIZE + 1, CELL_SIZE - 1, CELL_SIZE - 1)
+                cell_rect = pygame.Rect(column * CELL_SIZE + CELL_OFFSET, row * CELL_SIZE + CELL_OFFSET, CELL_SIZE - 1, CELL_SIZE - 1)
                 pygame.draw.rect(surface=screen, color=COLORS[cell_value], rect=cell_rect)
     
     def is_inside(self, row: int, column: int) -> bool:

@@ -14,10 +14,7 @@ CLOCK = pygame.time.Clock()
 
 game = Game()
 
-# Create a game event
 GAME_UPDATE = pygame.USEREVENT
-
-# Will trigger game event every interval
 pygame.time.set_timer(GAME_UPDATE, 500)
 
 while True:
@@ -25,21 +22,23 @@ while True:
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
-        if event.type == pygame.KEYDOWN:
-            match event.key:
-                case pygame.K_a | pygame.K_LEFT:
-                    game.move_block("left")
-                case pygame.K_s | pygame.K_DOWN:
-                    game.move_block("down")
-                case pygame.K_d | pygame.K_RIGHT:
-                    game.move_block("right")
-                case pygame.K_q:
-                    game.rotate_block("left")
-                case pygame.K_e:
-                    game.rotate_block("right")
-        # Check for game event
-        if event.type == GAME_UPDATE:
-            game.move_block("down")
+        if not game.game_over:
+            if event.type == pygame.KEYDOWN:
+                match event.key:
+                    case pygame.K_a | pygame.K_LEFT:
+                        game.move_block("left")
+                    case pygame.K_s | pygame.K_DOWN:
+                        game.move_block("down")
+                    case pygame.K_d | pygame.K_RIGHT:
+                        game.move_block("right")
+                    case pygame.K_q:
+                        game.rotate_block("left")
+                    case pygame.K_e:
+                        game.rotate_block("right")
+            if event.type == GAME_UPDATE:
+                game.move_block("down")
+        if game.game_over:
+            game.reset()
     
     game.draw(SCREEN)
 

@@ -10,6 +10,7 @@ class Game:
         self.blocks: list[Block] = self.get_all_blocks()
         self.cur_block: Block = self.get_random_block()
         self.next_block: Block = self.get_random_block()
+        self.game_over: bool = False
         
     def get_random_block(self) -> Block:
         if len(self.blocks) == 0:
@@ -22,7 +23,7 @@ class Game:
     def get_all_blocks(self) -> list[Block]:
         return [LBlock(), JBlock(), IBlock(), OBlock(), SBlock(), TBlock(), ZBlock()]
     
-    def move_block(self, direction: str):
+    def move_block(self, direction: str) -> None:
         match direction:
             case "left":
                 self.cur_block.move(0, -1)
@@ -36,12 +37,15 @@ class Game:
                 self.cur_block.move(0, 1)
                 self.cur_block.move(0, -1) if not self.block_inside() or not self.block_fits() else None
 
-    def lock_block(self):
+    def lock_block(self) -> None:
         tiles = self.cur_block.get_cell_positions()
         for position in tiles:
             self.grid.GRID[position.row][position.column] = self.cur_block.id
         self.cur_block = self.next_block
         self.next_block = self.get_random_block()
+        self.grid.clear_rows()
+        if not self.block_fits():
+            self.game_over = True
 
     def block_fits(self) -> bool:
         tiles = self.cur_block.get_cell_positions()
@@ -50,7 +54,7 @@ class Game:
                 return False
         return True
 
-    def rotate_block(self, rotation: str):
+    def rotate_block(self, rotation: str) -> None:
         match rotation:
             case "right":
                 self.cur_block.rotate(1)
@@ -66,6 +70,11 @@ class Game:
                 return False
         return True
 
-    def draw(self, screen: Surface):
+    def draw(self, screen: Surface) -> None:
         self.grid.draw(screen)
         self.cur_block.draw(screen)
+
+    def reset(self) -> None:
+        self.grid.set_grid()
+        self.blocks = self.get_all_blocks()
+        self.game_over = False

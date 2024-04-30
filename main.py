@@ -21,12 +21,16 @@ while True:
             sys.exit()
         if event.type == pygame.KEYDOWN:
             match event.key:
-                case pygame.K_a:
+                case pygame.K_a | pygame.K_LEFT:
                     game.move_block("left")
-                case pygame.K_s:
+                case pygame.K_s | pygame.K_DOWN:
                     game.move_block("down")
-                case pygame.K_d:
+                case pygame.K_d | pygame.K_RIGHT:
                     game.move_block("right")
+                case pygame.K_q:
+                    game.rotate_block("left")
+                case pygame.K_e:
+                    game.rotate_block("right")
     
     game.draw(SCREEN)
 

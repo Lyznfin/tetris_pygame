@@ -26,10 +26,27 @@ class Game:
         match direction:
             case "left":
                 self.cur_block.move(0, -1)
-            case "right":
-                self.cur_block.move(0, 1)
+                self.cur_block.move(0, 1) if not self.block_inside() else None
             case "down":
                 self.cur_block.move(1, 0)
+                self.cur_block.move(-1, 0) if not self.block_inside() else None
+            case "right":
+                self.cur_block.move(0, 1)
+                self.cur_block.move(0, -1) if not self.block_inside() else None
+
+    def rotate_block(self, rotation: str):
+        match rotation:
+            case "right":
+                self.cur_block.rotate(1)
+            case "left":
+                self.cur_block.rotate(-1)
+
+    def block_inside(self) -> bool:
+        tiles = self.cur_block.get_cell_positions()
+        for tile in tiles:
+            if not self.grid.is_inside(tile.row, tile.column):
+                return False
+        return True
 
     def draw(self, screen: Surface):
         self.grid.draw(screen)

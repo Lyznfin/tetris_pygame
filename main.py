@@ -1,6 +1,6 @@
 import pygame, sys
 
-from const import WIDTH, HEIGHT, DARK_GREY, WHITE, PINK
+from const import WIDTH, HEIGHT, DARK_GREY, WHITE, LIGTH_GREY
 from game import Game
 
 pygame.init()
@@ -14,7 +14,7 @@ score_rect = pygame.Rect(325, 55, 170, 60)
 next_rect = pygame.Rect(325, 215, 170, 180)
 
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-SCREEN.fill(DARK_GREY)
+SCREEN.fill(LIGTH_GREY)
 
 pygame.display.set_caption("Tetris")
 
@@ -55,11 +55,11 @@ while True:
     SCREEN.blit(score_inteface, (370, 20, 50, 50))
     SCREEN.blit(next_interface, (380, 180, 50, 50))
 
-    pygame.draw.rect(SCREEN, PINK, score_rect, 0, 10)
+    pygame.draw.rect(SCREEN, DARK_GREY, score_rect, 0, 10)
     SCREEN.blit(score_value_interface, score_value_interface.get_rect(
     centerx = score_rect.centerx, centery = score_rect.centery
     ))
-    pygame.draw.rect(SCREEN, PINK, next_rect, 0, 10)
+    pygame.draw.rect(SCREEN, DARK_GREY, next_rect, 0, 10)
 
     game.draw(SCREEN)
 

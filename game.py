@@ -4,15 +4,23 @@ from const import CELL_OFFSET
 
 import random
 from pygame import Surface
+import pygame
 
 class Game:
     def __init__(self) -> None:
         self.grid: Grid = Grid()
+        
         self.blocks: list[Block] = self.get_all_blocks()
         self.cur_block: Block = self.get_random_block()
         self.next_block: Block = self.get_random_block()
+        
         self.game_over: bool = False
         self.score: int = 0
+
+        self.clear_sound = pygame.mixer.Sound("sounds/clear.wav")
+
+        pygame.mixer.music.load("sounds/music.mp3")
+        pygame.mixer.music.play(-1)
 
     def update_score(self, lines_cleared: int, move_down: int) -> None:
         match lines_cleared:
@@ -56,6 +64,8 @@ class Game:
         self.cur_block = self.next_block
         self.next_block = self.get_random_block()
         lines_cleared = self.grid.clear_rows()
+        if lines_cleared > 0:
+            self.clear_sound.play()
         self.update_score(lines_cleared, 0)
         if not self.block_fits():
             self.game_over = True

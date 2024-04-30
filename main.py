@@ -1,39 +1,34 @@
 import pygame, sys
 
-from grid import Grid
 from const import WIDTH, HEIGHT, LIGTH_GREY
-from blocks import *
+from game import Game
 
-# Initialize pygame
 pygame.init()
 
-# Create game windows
 SCREEN = pygame.display.set_mode((WIDTH, HEIGHT))
-pygame.display.set_caption("Tetris")
-
-# Create clock to control framerate | like timeDelta or sum
-CLOCK = pygame.time.Clock()
-
 SCREEN.fill(LIGTH_GREY)
 
-GAME_GRID = Grid()
-GRID_BLOCK = OBlock()
-# GRID_BLOCK.move(4, 3)
+pygame.display.set_caption("Tetris")
 
-# Create game loop
+CLOCK = pygame.time.Clock()
+
+game = Game()
+
 while True:
-    # Event handling
     for event in pygame.event.get():
-        # Check for quit event
         if event.type == pygame.QUIT:
             pygame.quit()
             sys.exit()
+        if event.type == pygame.KEYDOWN:
+            match event.key:
+                case pygame.K_a:
+                    game.move_block("left")
+                case pygame.K_s:
+                    game.move_block("down")
+                case pygame.K_d:
+                    game.move_block("right")
+    
+    game.draw(SCREEN)
 
-    GAME_GRID.draw(SCREEN)
-    GRID_BLOCK.draw(SCREEN)
-
-    # Updates display
     pygame.display.update()
-
-    # Framerate | run how many times per second
     CLOCK.tick(60)

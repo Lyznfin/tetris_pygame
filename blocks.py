@@ -51,7 +51,7 @@ class SBlock(Block):
             3: [Position(0, 0), Position(1, 0), Position(1, 1), Position(2, 1)]
         }
 
-class SBlock(Block):
+class TBlock(Block):
     def __init__(self) -> None:
         super().__init__(id=6)
         self.cells = {

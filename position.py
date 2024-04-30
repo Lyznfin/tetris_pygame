@@ -4,7 +4,7 @@ class Position:
         self.column = column
 
     @property
-    def row(self):
+    def row(self) -> int:
         return self.__row
     
     @row.setter
@@ -12,7 +12,7 @@ class Position:
         self.__row = value
 
     @property
-    def column(self):
+    def column(self) -> int:
         return self.__column
     
     @column.setter

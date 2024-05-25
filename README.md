@@ -1,5 +1,5 @@
 # Tetris Pygame
-My attempt on a tetris tutorial using pygame
+My attempt on making tetris using oop principles and pygame
 
 If you want to try it, clone this repo and cd to dir
 ```
